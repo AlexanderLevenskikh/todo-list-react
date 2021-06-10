@@ -17,7 +17,7 @@ export const webpackRulesPart = ({ isProduction, wds, babelConfigPath }: IWebpac
         }),
         webpackLessRule({
             isProduction,
-            include: /antd/,
+            include: /src|antd/,
             postCSSConfigDirPath: webpackContext,
         }),
         webpackFileRule({

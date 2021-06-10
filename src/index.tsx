@@ -5,6 +5,8 @@ import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import ruRU from 'antd/es/locale/ru_RU';
 import { ConfigProvider } from 'antd';
+import { AppLayout } from 'root/components/AppLayout/AppLayout';
+import './general.less';
 
 function initApp() {
     const root = document.getElementById('root');
@@ -16,7 +18,7 @@ function initApp() {
     function renderApp() {
         return (
             <ConfigProvider locale={ruRU}>
-                <span>Test</span>
+                <AppLayout />
             </ConfigProvider>
         );
     }

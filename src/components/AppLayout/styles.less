@@ -1,0 +1,15 @@
+@import '~root/shared/variables';
+
+.wrapper {
+    composes: flex-column from '~root/shared/parts.less';
+    composes: flex-align-center from '~root/shared/parts.less';
+    height: 100%;
+    background-color: @gray-color;
+}
+
+.content {
+    width: @min-content-width;
+    min-height: @min-content-height;
+    margin: 30px 50px;
+    background-color: @white-color;
+}

@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start:dev:fake": "cross-env TS_NODE_PROJECT=webpack/tsconfig.json IS_PROD_MODE=false IS_PROD_DEPS=false IS_WDS=true webpack serve -c ./webpack/config.ts",
-    "run:json:server": "json-server --watch ./json-server/db.json --port 3001"
+    "build:prod:fake": "cross-env TS_NODE_PROJECT=webpack/tsconfig.json IS_PROD_MODE=true IS_PROD_DEPS=false IS_WDS=false webpack -c ./webpack/config.ts",
+    "run:json:server": "json-server --watch ./json-server/db.json --no-cors --routes ./json-server/routes.json --port 3001 "
   },
   "dependencies": {
     "core-js": "^3.14.0",

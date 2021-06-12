@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+    nginx:
+        build:
+            context: .
+        ports:
+            - '8080:80'
+        depends_on:
+            - "json-server"
+        volumes:
+            - /var/log/nginx:/var/log/nginx
+        restart: always
+
+    json-server:
+        image: vimagick/json-server
+        command: -H 0.0.0.0 -p 3001 -w --nc -r routes.json db.json
+        ports:
+            - "3001:3001"
+        volumes:
+            - ./json-server:/data
+        restart: always

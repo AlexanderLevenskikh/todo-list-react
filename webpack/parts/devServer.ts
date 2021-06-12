@@ -4,7 +4,7 @@ export const webpackDevServerPart = (): Configuration => {
     return {
         host: '0.0.0.0',
         public: 'localhost:8080',
-        publicPath: '/public/',
+        publicPath: '/',
         headers: {
             'Access-Control-Allow-Origin': '*',
         },

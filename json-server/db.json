@@ -1,48 +1,18 @@
 {
   "todoList": [
     {
-      "id": "8ff4218d-ae13-46fa-9e19-691606bb3145",
-      "comment": "comment 422",
+      "id": "e6eb3060-cc38-11eb-8555-f5e0f7415b61",
+      "comment": "TODO 1",
+      "completed": false
+    },
+    {
+      "id": "eaa61580-cc38-11eb-8555-f5e0f7415b61",
+      "comment": "Completed TODO 2",
       "completed": true
     },
     {
-      "id": "c7704ce2-1137-4b4b-8cd5-d12ebf608700",
-      "comment": "comment 69f",
-      "completed": true
-    },
-    {
-      "id": "89a8efdb-f9f4-4980-9eb1-afeb086a0204",
-      "comment": "comment 7",
-      "completed": false
-    },
-    {
-      "id": "def0c4b0-cba7-11eb-a524-3fd3dbe120aa",
-      "comment": "fsdfsfs",
-      "completed": false
-    },
-    {
-      "id": "36e6f7b0-cba9-11eb-a78b-37032ae8b470",
-      "comment": "MIN_PAGING_eMIN_PAGING_LIMITMIN_PAGING_LIMITMIN_PAGING_LIMITMIN_PAGING_LIMITMIN_PAGING_LIMITMIN_",
-      "completed": false
-    },
-    {
-      "id": "793098d0-cbb1-11eb-8950-a1c2a3992303",
-      "comment": "321313442312",
-      "completed": false
-    },
-    {
-      "id": "f672a310-cbb1-11eb-8982-5d13e862f804",
-      "comment": "fdfsdfds",
-      "completed": false
-    },
-    {
-      "id": "b0e43200-cbbb-11eb-b47e-331bd8aab978",
-      "comment": "312321",
-      "completed": false
-    },
-    {
-      "id": "baf9fb80-cbbb-11eb-ad73-b5c42cc3bf7b",
-      "comment": "21312321",
+      "id": "ee3fb700-cc38-11eb-8555-f5e0f7415b61",
+      "comment": "TODO 3",
       "completed": false
     }
   ]

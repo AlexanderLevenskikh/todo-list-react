@@ -1,4 +1,4 @@
-import { notEmpty } from 'root/shared/utils/notEmpty';
+import {notEmpty} from 'root/shared/utils/notEmpty';
 
 export interface IHttpClient {
     makeRequest(options: IHttpClientOptions): Promise<any>;
@@ -30,7 +30,7 @@ export interface IHttpClientOptions {
 }
 
 export class HttpClient implements IHttpClient {
-    private serverOrigin: string;
+    private readonly serverOrigin: string;
 
     constructor(serverOrigin: string) {
         this.serverOrigin = serverOrigin;
@@ -39,7 +39,7 @@ export class HttpClient implements IHttpClient {
     public async makeRequest(options: IHttpClientOptions): Promise<any> {
         const { request, responseType, method, route } = options;
 
-        const href = HttpClient.buildHref(this.serverOrigin, route, request.query);
+        const href = HttpClient.buildHref(this.serverOrigin, 'api/' + route, request.query);
 
         let httpClientOptions: RequestInit = {
             method: options.method.toString(),
@@ -131,4 +131,6 @@ export class HttpClient implements IHttpClient {
     }
 }
 
-export const httpClient = new HttpClient('http://localhost:3001');
+const serverOrigin = IS_PROD_MODE || !IS_WDS ? window.location.origin : 'http://localhost:3001';
+
+export const httpClient = new HttpClient(serverOrigin);

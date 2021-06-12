@@ -11,7 +11,7 @@ const IS_PROD_DEPS = process.env.IS_PROD_DEPS === 'true';
 const IS_PROD_MODE = process.env.IS_PROD_MODE === 'true';
 
 const webpackConfig = (): webpack.Configuration => {
-    const publicPath = '/public/';
+    const publicPath = '/';
 
     const entryPoint = path.resolve('./src', 'index.tsx');
 

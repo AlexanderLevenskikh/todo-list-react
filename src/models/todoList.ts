@@ -95,7 +95,7 @@ export const todoListNode = todoListModel
 
             add: flow(function* add(comment: string) {
                 try {
-                    const { api } = getEnv<IStoreDependencies>(self);
+                    const { api, notifier } = getEnv<IStoreDependencies>(self);
                     yield* toGenerator(
                         api.todoList.addItem({
                             id: v1(),
@@ -103,6 +103,8 @@ export const todoListNode = todoListModel
                             completed: false,
                         }),
                     );
+
+                    notifier.notifySuccess(`New TODO "${comment}" was added`);
 
                     self.totalCount += 1;
                     yield* load();
@@ -125,7 +127,9 @@ export const todoListNode = todoListModel
                 self.offset = args.offset;
             }
 
+            let completionFilterChanged = false;
             if (args.completionFilter !== undefined) {
+                completionFilterChanged = self.completionFilter !== args.completionFilter;
                 self.completionFilter = args.completionFilter;
             }
 
@@ -138,6 +142,9 @@ export const todoListNode = todoListModel
                 let isCompleted;
                 if (self.completionFilter !== TodoListCompletionFilter.All) {
                     isCompleted = self.completionFilter === TodoListCompletionFilter.Completed;
+                }
+
+                if (completionFilterChanged) {
                     offset = 0;
                 }
 

@@ -55,11 +55,13 @@ export const todoListItemNode = todoListItemModel.actions((self) => ({
     }),
 
     remove: flow(function* () {
-        const { api, logger } = getEnv<IStoreDependencies>(self);
+        const { api, logger, notifier } = getEnv<IStoreDependencies>(self);
 
         try {
-            const isCompleted = self.isCompleted;
+            const { isCompleted, comment } = self;
             yield* toGenerator(api.todoList.removeItem(self.id));
+
+            notifier.notifySuccess(`TODO "${comment}" was removed`);
 
             const parent = getParent<ITodoListNode>(self, 2);
             if (isCompleted) {

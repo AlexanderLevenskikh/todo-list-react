@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { TodoListItem } from 'root/components/TodoListItem/TodoListItem';
 import styles from './styles.less';
 import { Paging } from 'root/components/Paging/Paging';
+import { InlineAlert } from 'evergreen-ui';
 
 export const TodoList: FC = observer(() => {
     const { todoList } = useMst();
@@ -15,13 +16,20 @@ export const TodoList: FC = observer(() => {
                     <TodoListItem item={item} />
                 </li>
             ))}
-            <Paging
-                pagesCount={todoList.pagesCount}
-                activePage={todoList.activePage}
-                changePage={changePage}
-                changeItemsPerPage={changeItemsPerPage}
-            />
-            Completed: {todoList.completedCount} / Total: {todoList.totalCount}
+            <div className={styles.footerWrapper}>
+                <div className={styles.counters}>
+                    <InlineAlert intent='none'>
+                        Completed: {todoList.completedCount} / Total: {todoList.totalCount}
+                    </InlineAlert>
+                </div>
+                <Paging
+                    pagesCount={todoList.pagesCount}
+                    activePage={todoList.activePage}
+                    itemsPerPage={todoList.limit}
+                    changePage={changePage}
+                    changeItemsPerPage={changeItemsPerPage}
+                />
+            </div>
         </ul>
     );
 

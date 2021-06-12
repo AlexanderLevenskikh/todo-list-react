@@ -1,0 +1,35 @@
+@import "~root/shared/variables";
+
+.wrapper {
+
+}
+
+.inputWrapper,
+.commentWrapper {
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.inputWrapper {
+    background-color: @gray-color;
+}
+
+.commentWrapper {
+    display: flex;
+    cursor: pointer;
+    word-break: break-all;
+    background-color: @light-gray-color;
+
+    &:hover {
+        background-color: @gray-color
+    }
+}
+
+.buttonsWrapper {
+    padding: 15px 15px 0;
+}
+
+.icon {
+    margin-right: 10px;
+}
+

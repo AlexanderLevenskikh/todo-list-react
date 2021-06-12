@@ -1,8 +1,9 @@
 @import '~root/shared/variables';
+@import '~root/shared/parts';
 
 .ul {
-    composes: reset-ul from '~root/shared/parts.less';
-    padding: 42px 24px 50px;
+    .reset-ul();
+    padding: 42px 24px 20px;
     border-radius: 2px;
 }
 
@@ -12,4 +13,15 @@
     &:not(:last-child) {
         border-bottom: 1px solid @table-border-color;
     }
+}
+
+.counters {
+    margin: 20px 40px;
+}
+
+.footerWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }

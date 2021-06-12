@@ -1,6 +1,9 @@
 import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { ITodoListItemNode } from 'root/models/todoListItem';
+import styles from './styles.less';
+import { Button, CircleIcon, TextInputField, TickCircleIcon } from 'evergreen-ui';
+import { MAX_TODO_LENGTH } from 'root/constants/maxTodoLength';
 
 interface IProps {
     item: ITodoListItemNode;
@@ -14,17 +17,43 @@ export const TodoListItem: FC<IProps> = observer(({ item }) => {
         setCommentDraft(item.comment);
     }, [item.comment]);
 
-    return editModeEnabled ? (
-        <div>
-            <input type='text' value={commentDraft} onChange={editComment} />
-            <input type='button' value='Submit' onClick={saveChanges} />
-            <input type='button' value='Cancel' onClick={disableEditMode} />
-        </div>
-    ) : (
-        <div>
-            <span onClick={toggleCompleted}>{item.comment}</span>
-            <input type='button' value='Edit' onClick={enableEditMode} />
-            <input type='button' value='Remove' onClick={removeItem} />
+    return (
+        <div className={styles.wrapper}>
+            {editModeEnabled ? (
+                <>
+                    <div className={styles.inputWrapper}>
+                        <TextInputField value={commentDraft} onChange={editComment} maxLength={MAX_TODO_LENGTH} />
+                    </div>
+
+                    <div className={styles.buttonsWrapper}>
+                        <Button marginRight={8} appearance='primary' onClick={saveChanges}>
+                            Submit
+                        </Button>
+                        <Button onClick={disableEditMode}>Cancel</Button>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className={styles.commentWrapper} onClick={toggleCompleted}>
+                        <span className={styles.icon}>
+                            {item.isCompleted ? (
+                                <TickCircleIcon color='success' size={24} />
+                            ) : (
+                                <CircleIcon color='muted' size={24} />
+                            )}
+                        </span>
+                        <span>{item.comment}</span>
+                    </div>
+                    <div className={styles.buttonsWrapper}>
+                        <Button marginRight={8} appearance='primary' onClick={enableEditMode}>
+                            Edit
+                        </Button>
+                        <Button onClick={removeItem} intent='danger'>
+                            Remove
+                        </Button>
+                    </div>
+                </>
+            )}
         </div>
     );
 

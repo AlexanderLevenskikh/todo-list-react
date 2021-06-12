@@ -1,0 +1,15 @@
+@import '~root/shared/variables';
+
+.ul {
+    composes: reset-ul from '~root/shared/parts.less';
+    padding: 42px 24px 50px;
+    border-radius: 2px;
+}
+
+.li {
+    padding: 12px 24px;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid @table-border-color;
+    }
+}

@@ -1,12 +1,13 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import React, { FC } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import ruRU from 'antd/es/locale/ru_RU';
-import { ConfigProvider } from 'antd';
 import { AppLayout } from 'root/components/AppLayout/AppLayout';
 import './general.less';
+import { StoreProvider } from 'root/stores/react/context';
+import { store } from 'root/stores';
+import { TodoList } from 'root/components/TodoList';
 
 function initApp() {
     const root = document.getElementById('root');
@@ -17,9 +18,11 @@ function initApp() {
 
     function renderApp() {
         return (
-            <ConfigProvider locale={ruRU}>
-                <AppLayout />
-            </ConfigProvider>
+            <StoreProvider value={store}>
+                <AppLayout>
+                    <TodoList />
+                </AppLayout>
+            </StoreProvider>
         );
     }
 }

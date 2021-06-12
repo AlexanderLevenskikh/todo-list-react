@@ -3,11 +3,11 @@ import { FC } from 'react';
 import { AppHeader } from 'root/components/AppHeader/AppHeader';
 import styles from './styles.less';
 
-export const AppLayout: FC = () => {
+export const AppLayout: FC = ({ children }) => {
     return (
         <main className={styles.wrapper}>
             <AppHeader />
-            <section className={styles.content}>main</section>
+            <section className={styles.content}>{children}</section>
         </main>
     );
 };

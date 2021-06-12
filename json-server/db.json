@@ -1,0 +1,39 @@
+{
+  "todoList": [
+    {
+      "id": "6e51ebf6-72b8-490e-b3ed-17bebfe2cc7b",
+      "comment": "comment 1",
+      "completed": true
+    },
+    {
+      "id": "a9793f1f-1318-42de-81e8-ab0c2df17641",
+      "comment": "comment 2",
+      "completed": false
+    },
+    {
+      "id": "561f0561-8d4e-482a-b950-5ce9195d4489",
+      "comment": "comment 3",
+      "completed": true
+    },
+    {
+      "id": "8ff4218d-ae13-46fa-9e19-691606bb3145",
+      "comment": "comment 4",
+      "completed": false
+    },
+    {
+      "id": "6839f385-a57f-4446-bffb-3d249c76779f",
+      "comment": "comment 5",
+      "completed": false
+    },
+    {
+      "id": "c7704ce2-1137-4b4b-8cd5-d12ebf608700",
+      "comment": "comment 6",
+      "completed": false
+    },
+    {
+      "id": "89a8efdb-f9f4-4980-9eb1-afeb086a0204",
+      "comment": "comment 7",
+      "completed": false
+    }
+  ]
+}

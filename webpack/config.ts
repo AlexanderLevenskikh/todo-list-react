@@ -7,7 +7,8 @@ import { webpackRulesPart } from './parts/rules';
 import { webpackDevServerPart } from './parts/devServer';
 
 const IS_WDS = process.env.IS_WDS === 'true';
-const IS_PRODUCTION = process.env.IS_PRODUCTION === 'true';
+const IS_PROD_DEPS = process.env.IS_PROD_DEPS === 'true';
+const IS_PROD_MODE = process.env.IS_PROD_MODE === 'true';
 
 const webpackConfig = (): webpack.Configuration => {
     const publicPath = '/public/';
@@ -16,11 +17,11 @@ const webpackConfig = (): webpack.Configuration => {
 
     const output = {
         publicPath,
-        filename: IS_PRODUCTION ? '[name].[hash].js' : '[name].js',
+        filename: IS_PROD_MODE ? '[name].[hash].js' : '[name].js',
         path: path.resolve(webpackContext, 'dist'),
     };
 
-    const devtool = IS_PRODUCTION ? false : 'eval-source-map';
+    const devtool = IS_PROD_MODE ? false : 'source-map';
 
     const babelConfigPath = path.resolve(webpackContext, 'babel.config.js');
 
@@ -33,13 +34,20 @@ const webpackConfig = (): webpack.Configuration => {
     };
 
     return {
-        mode: IS_PRODUCTION ? 'production' : 'development',
+        mode: IS_PROD_MODE ? 'production' : 'development',
         entry: entryPoint,
         output,
         devtool,
-        optimization: webpackOptimizationPart(IS_PRODUCTION),
-        plugins: webpackPluginsPart({ serviceTitle: 'title', wds: IS_WDS }),
-        module: { rules: webpackRulesPart({ babelConfigPath, wds: IS_WDS, isProduction: IS_PRODUCTION }) },
+        optimization: webpackOptimizationPart(IS_PROD_MODE),
+        plugins: webpackPluginsPart({
+            serviceTitle: 'title',
+            isWebpackDevServer: IS_WDS,
+            isProductionDependencies: IS_PROD_DEPS,
+            isProductionMode: IS_PROD_MODE,
+        }),
+        module: {
+            rules: webpackRulesPart({ babelConfigPath, isWebpackDevServer: IS_WDS, isProduction: IS_PROD_MODE }),
+        },
         resolve,
         context: webpackContext,
         // @ts-ignore

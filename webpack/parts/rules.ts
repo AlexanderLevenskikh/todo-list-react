@@ -1,23 +1,23 @@
 import { webpackTSXRule } from '../rules/typescriptJSX';
-import { webpackCssRule, webpackFileRule, webpackLessRule } from '../rules';
+import { webpackFileRule, webpackLessRule } from '../rules';
 import { webpackContext } from '../context';
 
 interface IWebpackRulesPartArgs {
-    wds: boolean;
+    isWebpackDevServer: boolean;
     isProduction: boolean;
     babelConfigPath: string;
 }
 
-export const webpackRulesPart = ({ isProduction, wds, babelConfigPath }: IWebpackRulesPartArgs) => {
+export const webpackRulesPart = ({ isProduction, isWebpackDevServer, babelConfigPath }: IWebpackRulesPartArgs) => {
     return [
         webpackTSXRule({
-            wds,
+            isWebpackDevServer,
             include: /src/,
             configFile: babelConfigPath,
         }),
         webpackLessRule({
             isProduction,
-            include: /src|antd/,
+            include: /src/,
             postCSSConfigDirPath: webpackContext,
         }),
         webpackFileRule({

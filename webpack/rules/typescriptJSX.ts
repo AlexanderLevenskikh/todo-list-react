@@ -4,14 +4,15 @@ import { webpackBabelLoader } from './loaders/babel';
 import { webpackReactHotLoader } from './loaders/reactHotLoader';
 
 export interface IWebpackTSXRuleCreatorArgs extends IWebpackJavascriptRuleCreatorArgs {
-    wds?: boolean;
+    isWebpackDevServer?: boolean;
 }
 
-export const webpackTSXRule = ({ wds = false, include, configFile }: IWebpackTSXRuleCreatorArgs): RuleSetRule => ({
-    test: /\.[jt]sx$/,
-    use: [
-        ...(wds ? [ webpackReactHotLoader() ] : []),
-        webpackBabelLoader(configFile),
-    ],
+export const webpackTSXRule = ({
+    isWebpackDevServer = false,
+    include,
+    configFile,
+}: IWebpackTSXRuleCreatorArgs): RuleSetRule => ({
+    test: /\.[jt]sx?$/,
+    use: [...(isWebpackDevServer ? [webpackReactHotLoader()] : []), webpackBabelLoader(configFile)],
     include,
 });

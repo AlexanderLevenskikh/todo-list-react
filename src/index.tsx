@@ -7,7 +7,7 @@ import { AppLayout } from 'root/components/AppLayout/AppLayout';
 import './general.less';
 import { StoreProvider } from 'root/stores/react/context';
 import { store } from 'root/stores';
-import { TodoList } from 'root/components/TodoList';
+import { Todo } from 'root/components/Todo/Todo';
 
 function initApp() {
     const root = document.getElementById('root');
@@ -20,7 +20,7 @@ function initApp() {
         return (
             <StoreProvider value={store}>
                 <AppLayout>
-                    <TodoList />
+                    <Todo />
                 </AppLayout>
             </StoreProvider>
         );

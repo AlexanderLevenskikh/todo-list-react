@@ -1,6 +1,6 @@
 export interface IListDto<T> {
     items: T[];
-    totalCount: number;
+    count: number;
 }
 
 export interface ITodoListItemDto {

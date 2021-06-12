@@ -22,7 +22,7 @@ export class TodoListFakeApi implements ITodoListApi {
         return httpClient.makeRequest({
             method: HttpClientMethod.PUT,
             responseType: HttpClientResponseType.JSON,
-            route: 'todoList',
+            route: `todoList/${item.id}`,
             request: {
                 body: {
                     id: item.id,

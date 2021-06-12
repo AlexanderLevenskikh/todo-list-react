@@ -118,12 +118,12 @@ export class HttpClient implements IHttpClient {
     private static async parseJSON(response: Response): Promise<any> {
         const text = await response.text();
         let json = text ? JSON.parse(text) : {};
-        let totalCount = response.headers.get('X-Total-Count');
+        let count = response.headers.get('X-Total-Count');
 
-        if (totalCount) {
+        if (count) {
             json = {
                 items: json,
-                totalCount,
+                count: Number.parseInt(count),
             };
         }
 

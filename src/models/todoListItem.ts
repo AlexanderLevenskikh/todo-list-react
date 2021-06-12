@@ -1,6 +1,5 @@
-import { getEnv, getParent, Instance, SnapshotIn, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
+import { getEnv, getParent, Instance, SnapshotIn, SnapshotOut, toGenerator, types, flow } from 'mobx-state-tree';
 import { ITodoListNode } from 'root/models/todoList';
-import { flow } from 'mobx';
 import { IStoreDependencies } from 'root/stores/dependencies';
 import { mappers } from 'root/models/mappers';
 
@@ -16,26 +15,60 @@ export const todoListItemModel = types.model('todoListItemModel', {
 });
 
 export const todoListItemNode = todoListItemModel.actions((self) => ({
-    toggleIsCompleted() {
-        self.isCompleted = !self.isCompleted;
-    },
+    edit: flow(function* edit(comment: string) {
+        const { api, logger } = getEnv<IStoreDependencies>(self);
 
-    edit: flow(function* (comment: string) {
-        const { api } = getEnv<IStoreDependencies>(self);
-        yield* toGenerator(
-            api.todoList.updateItem({
-                ...mappers.todoList.mapModelToDto(self),
-                comment,
-            }),
-        );
+        try {
+            yield* toGenerator(
+                api.todoList.updateItem({
+                    ...mappers.todoList.mapModelToDto(self),
+                    ...(comment !== undefined ? { comment } : {}),
+                }),
+            );
 
-        self.comment = comment;
+            if (comment !== undefined) {
+                self.comment = comment;
+            }
+        } catch (e) {
+            logger.logError(e.message);
+        }
+    }),
+
+    toggleIsCompleted: flow(function* toggleIsCompleted() {
+        const { api, logger } = getEnv<IStoreDependencies>(self);
+        const nextCompleted = !self.isCompleted;
+
+        try {
+            yield* toGenerator(
+                api.todoList.updateItem({
+                    ...mappers.todoList.mapModelToDto(self),
+                    completed: nextCompleted,
+                }),
+            );
+
+            const parent = getParent<ITodoListNode>(self, 2);
+            parent.changeCompletedCount(parent.completedCount + (nextCompleted ? 1 : -1));
+            parent.load();
+        } catch (e) {
+            logger.logError(e.message);
+        }
     }),
 
     remove: flow(function* () {
-        const { api } = getEnv<IStoreDependencies>(self);
-        yield* toGenerator(api.todoList.removeItem(self.id));
+        const { api, logger } = getEnv<IStoreDependencies>(self);
 
-        getParent<ITodoListNode>(self, 2).load();
+        try {
+            const isCompleted = self.isCompleted;
+            yield* toGenerator(api.todoList.removeItem(self.id));
+
+            const parent = getParent<ITodoListNode>(self, 2);
+            if (isCompleted) {
+                parent.changeCompletedCount(parent.completedCount - 1);
+            }
+            parent.changeTotalCount(parent.totalCount - 1);
+            parent.load();
+        } catch (e) {
+            logger.logError(e.message);
+        }
     }),
 }));
